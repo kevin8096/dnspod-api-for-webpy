@@ -13,6 +13,8 @@ class hello:
 
 class hi:
     def GET(self):
-	return " hi"
+	return " hi python!!"
+
+
 
 application = web.application(urls, globals()).wsgifunc()
