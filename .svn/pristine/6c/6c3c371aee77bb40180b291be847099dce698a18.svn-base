@@ -1,0 +1,10 @@
+$def with (dataList,header)
+$:header
+<div style="float: left;">
+<table class="table table-bordered">
+    $for i in dataList
+    <tr>
+        <td>$i</td>
+    </tr>
+</table>
+</div>

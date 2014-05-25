@@ -1,0 +1,57 @@
+import web
+import os
+from mongoengine import connection
+from config.settings import urls
+from web import utils
+from include.dnspod import dnspod
+
+web.config.debug = False
+
+r = web.template.render(os.path.join(os.path.dirname(__file__), 'templates/'))
+siteName = 'dnsapi'
+header = r.header(siteName)
+
+db = web.database(dbn='mysql',db='test',user='root',pw='')
+
+
+
+class index:
+    def __index__(self):
+        if session.get('login',False):
+            web.seeother('/list')
+        else:
+            web.seeother('/login')
+
+class login:
+    def GET(self):
+        a='a'
+        return r.login(a,header)
+    def POST(self):
+        i = web.input(email='kevin8096@live.com',pwd='2720003')
+        if not i.email:
+            return 'please check your email'
+        if not i.pwd:
+            return 'please check your password'
+        else:
+            email = i.email
+            pwd = i.pwd
+            session.login = True
+            return web.seeother('/list')
+
+
+class list:
+    def GET(self):
+        if session.get('login',False):
+            return 'aa'
+
+
+
+
+
+
+
+
+app = web.application(urls, globals())
+curdir = os.path.dirname(__file__)
+session = web.session.Session(app, web.session.DiskStore(curdir + '/' + 'sessions'),)
+application = app.wsgifunc()

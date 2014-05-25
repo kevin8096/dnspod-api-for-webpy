@@ -1,0 +1,8 @@
+$def with (dataList)
+
+<table class="table table-bordered">
+    $for i in dataList
+    <tr>
+        <td>$i</td>
+    </tr>
+</table>

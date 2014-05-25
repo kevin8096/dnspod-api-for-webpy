@@ -1,0 +1,10 @@
+$def with(i)
+<div>aa :$i.name</div>
+       <div class="box post">
+            <h2>hi</h2>
+            <form action="" method="post">
+                <p><input type="text" name="name" class="long_txt" value="$i.name" /></p>
+                    <input type="submit" class="submit" value="commit" />
+                </p>
+            </form>
+        </div>

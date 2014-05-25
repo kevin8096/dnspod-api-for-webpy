@@ -1,0 +1,6 @@
+$def with (name,age)
+
+$if name:
+    hello python <em> so cool!!</em> my name is $name ,my age is $age!.
+$else:
+    fuck u!

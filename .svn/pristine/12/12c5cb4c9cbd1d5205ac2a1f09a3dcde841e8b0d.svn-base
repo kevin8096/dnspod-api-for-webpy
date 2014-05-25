@@ -1,0 +1,5 @@
+<form action="post" method="">
+    <input type="text" name="name" value="">
+    <input type="password" name="password" value="">
+    <input type="submit" name="submit">
+</form>

@@ -1,0 +1,8 @@
+$def with (rows)
+
+$for row in rows:
+    <div>  
+    name:$row.name
+    hp:  $row.hp
+    desc:$row.p_desc
+    </div>

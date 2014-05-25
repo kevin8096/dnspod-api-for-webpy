@@ -1,0 +1,44 @@
+$def with (siteName)
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+   <title>$siteName</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="../static/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<script src="../static/jquery/jquery.min.js"></script>
+ <script src="../static/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<nav class="navbar navbar-default" role="navigation">
+  <!-- Brand and toggle get grouped for better mobile display -->
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand" href="#">Brand</a>
+  </div>
+
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="#">Link</a></li>
+      <li><a href="#">Link</a></li>
+    </ul>
+
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="/logout" target="_self">退出</a></li>
+
+    </ul>
+  </div><!-- /.navbar-collapse -->
+</nav>
+<div>
+    <ul class="list-group">
+  <li class="list-group-item">
+    <span class="badge">14</span>
+    Cras justo odio
+  </li>
+</ul>
+</div>

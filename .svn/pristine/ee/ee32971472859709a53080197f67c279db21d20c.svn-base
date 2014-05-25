@@ -1,0 +1,82 @@
+#!/usr/bin/env python
+# coding: utf-8
+import web
+import os
+import urllib
+import json
+from mongoengine import connection
+from config.settings import urls
+from web import utils
+from include.dnspod import dnspod
+
+
+web.config.debug = False
+
+r = web.template.render(os.path.join(os.path.dirname(__file__), 'templates/'))
+siteName = 'dnsapi'
+header = r.header(siteName)
+baseUrl = 'https://dnsapi.cn/'
+userInfoApi = baseUrl + 'User.Detail'
+
+db = web.database(dbn='mysql',db='test',user='root',pw='')
+
+
+
+class Index:
+    def GET(self):
+         chkLogin()
+
+class Login:
+    def GET(self):
+        chkLogin()
+        a = ''
+        return r.login(a)
+    def POST(self):
+        i = web.input(email='kevin8096@live.com',pwd='2720003')
+        if not i.email:
+            return 'please check your email'
+        if not i.pwd:
+            return 'please check your password'
+        else:
+            api = dnspod(str(i.email),int(i.pwd),userInfoApi)
+            returnData = api.apiPost()
+            returnData = json.loads(returnData,encoding="utf8")
+            if returnData['status']:
+                return returnData['status']['code']
+            session.login = True
+            return web.seeother('/list')
+
+
+class List:
+    def GET(self):
+        if session.get('login',False):
+            dataList = [1,2,3,4,5]
+            return r.list(dataList,header)
+
+
+class Logout:
+    def GET(self):
+        session.kill()
+        web.seeother('/login')
+
+class DelDomain:
+    def GET(self):
+        i = web.input()
+        if not i.domainId:
+            web.seeother('/list')
+        else:
+            #do del
+            return 'success delte'
+
+
+
+def chkLogin():
+        if session.get('login',False):
+            web.seeother('/list')
+
+
+
+app = web.application(urls, globals())
+curdir = os.path.dirname(__file__)
+session = web.session.Session(app, web.session.DiskStore(curdir + '/' + 'sessions'),)
+application = app.wsgifunc()

@@ -1,0 +1,19 @@
+#!/usr/bin/env python
+# coding: utf-8
+import web
+import os
+
+urls = (
+    '/', 'hello',
+    '/login', 'login',
+    '/show' , 'show',
+    '/add'  , 'add',
+    '/index', 'add',
+
+   )
+
+
+
+web.template.Template.globals['r'] = web.template.render(os.path.join(os.path.dirname(__file__), 'templates/'))
+session = web.session.Session(app, web.session.DiskStore('sessions'), initializer={'count': 0})
+web.config._session = session

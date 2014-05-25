@@ -1,0 +1,17 @@
+#!/usr/bin/env python
+# coding: utf-8
+import web
+import os
+
+urls = (
+    '/', 'hello',
+    '/test2', 'hi',
+    '/show' , 'show',
+    '/add'  , 'add',
+    '/index', 'add',
+
+   )
+
+
+
+web.template.Template.globals['r'] = web.template.render(os.path.join(os.path.dirname(__file__), 'templates/'))

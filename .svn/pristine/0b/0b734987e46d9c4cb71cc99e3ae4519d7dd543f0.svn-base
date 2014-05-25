@@ -1,0 +1,76 @@
+import web
+import os
+from mongoengine import connection
+web.config.debug = False
+from config.settings import urls
+from web import utils
+
+r = web.template.render(os.path.join(os.path.dirname(__file__), 'templates/'))
+
+
+
+db = web.database(dbn='mysql',db='test',user='root',pw='')
+
+
+class hello:
+    def __init__(self):
+        self.render = web.template.render(os.path.join(os.path.dirname(__file__), 'templates/'))
+        
+    def GET(self):
+        p = web.input(name='kevin',age=26)
+	return self.render.index(p.name,p.age)
+
+class hi:
+    def __init__(self):
+        self.render = web.template.render(os.path.join(os.path.dirname(__file__),'templates/'))
+   
+
+    def GET(self):
+        i = web.input(name='kevin')
+	return self.render.add(i.name)
+
+class show:
+    def GET(self):
+        rows = db.select('NewTable')
+        return r.show(rows) 
+
+class add:
+    def POST(self):
+        i = web.input(name='kevin',hp=18611029562,desc='d')
+        if not i.name:
+            return " can not empty!!"
+	else:
+	    db.insert('NewTable', name=i.name, hp=i.hp ,p_desc=i.desc )
+	raise web.seeother('/show')
+
+
+class index:
+    def __init__(self):
+        self.render = web.template.render(os.path.join(os.path.dirname(__file__),'templates/'))
+    def GET(self):
+        add = 'add'
+        return self.render.add(add)
+
+
+class login:
+    def GET(self):
+        a='a'
+        siteName = 'dns-api'
+        return r.login(a,header=r.header(siteName))
+    def POST(self):
+        i = web.input(email='kevin8096@live.com',pwd='2720003')
+        if not i.email:
+            return 'please check your email'
+        if not i.pwd:
+            return 'please check your password'
+        else:
+            email = i.email
+            pwd = i.pwd
+            return r.index(email,pwd)
+
+
+
+
+
+application = web.application(urls, globals()).wsgifunc()
+session = web.session.Session(application,web.session.DiskStore('/sessions'))

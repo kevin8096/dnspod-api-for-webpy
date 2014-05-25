@@ -1,0 +1,17 @@
+$def with (dataList,header,errorMsg,successMsg)
+$:header
+<div style="float: left;margin:0px 300px 0px 100px;width:800px">
+    $:errorMsg
+    $:successMsg
+    <div class="panel panel-default">
+  <div class="panel-heading">dns list</div>
+<table class="table table-bordered">
+    $for i in dataList
+    <tr>
+        <td>$i</td><td style="width: 20%;text-align: center;"><span class="glyphicon glyphicon-remove"></span></td>
+    </tr>
+</table>
+
+    </div>
+</div>
+</div>

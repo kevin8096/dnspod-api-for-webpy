@@ -1,0 +1,26 @@
+$def with (add)
+
+<h1>$add</h1>
+<div>
+<form action='/add' method='post' >
+name:<input type='text' name='name' value=''/>
+
+
+<br/>
+
+hp:<input type='text' name='hp' value=''/>
+
+
+<br/>
+
+desc:<textarea name='desc'></textarea>
+
+
+<br/>
+
+
+<input type='submit' name='confirm' value='commit'/>
+</form>
+
+</div>
+

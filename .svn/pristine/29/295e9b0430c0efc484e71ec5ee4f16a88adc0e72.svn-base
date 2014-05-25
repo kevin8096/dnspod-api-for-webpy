@@ -1,0 +1,24 @@
+$def with(dataList,header)
+$:header
+<body>
+    <div style="margin: 200px 400px auto;">
+        <div class="panel panel-default">
+  <!-- Default panel contents -->
+  <div class="panel-heading">dns list</div>
+  <div class="panel-body">
+    <p>...</p>
+  </div>
+<table class="table table-bordered">
+    $for i in dataList:
+    <tr>
+        <td style="">$i</td>
+        <td>
+            <a href="/edit"><span class="glyphicon glyphicon-edit"></span></a>
+            <a href="/del"><span class="glyphicon glyphicon-minus-sign"></span></a>
+            <a href="/view"><span class="glyphicon glyphicon-eye-open"></span></a>
+        </td>
+    </tr>
+</table>
+            </div>
+        </div>
+</body>

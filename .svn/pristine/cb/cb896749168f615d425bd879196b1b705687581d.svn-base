@@ -1,0 +1,104 @@
+#!/usr/bin/env python
+# coding: utf-8
+import web
+import os
+import urllib
+import json
+from mongoengine import connection
+from config.settings import urls
+from web import utils
+from include.dnspod import dnspod
+
+
+web.config.debug = False
+
+r = web.template.render(os.path.join(os.path.dirname(__file__), 'templates/'))
+siteName = 'dnsapi'
+header = r.header(siteName)
+baseUrl = 'https://dnsapi.cn/'
+userInfoApi = baseUrl + 'User.Detail' #用户信息
+domainCreate = baseUrl + 'Domain.Create' #添加域名
+
+
+db = web.database(dbn='mysql',db='test',user='root',pw='')
+
+
+
+class Index:
+    def GET(self):
+         chkLogin()
+
+class Login:
+    def GET(self):
+        i = web.input()
+        errorMsg = ''
+        if  i and int(i.error) == 1:
+            errorMsg = errorMsgMethod('please check your email or password!')
+        chkLogin()
+        return r.login(errorMsg)
+    def POST(self):
+        i = web.input(email='kevin8096@live.com',pwd='2720003')
+        if not i.email:
+            return 'please check your email'
+        if not i.pwd:
+            return 'please check your password'
+        else:
+            api = dnspod(str(i.email),str(i.pwd),userInfoApi)
+            returnData = api.apiPost()
+            returnData = json.loads(returnData,encoding="utf8")
+            if returnData['status']:
+                if int(returnData['status']['code']) == 1:
+                    session.login = True
+                    web.seeother('/list')
+                else:
+                    web.redirect('/login?error=1')
+
+
+class List:
+    def GET(self):
+        if session.get('login',False):
+            dataList = [1,2,3,4,5]
+            errorMsg = ''
+            i = web.input()
+            if i and int(i.error) == 1:
+                errorMsg = errorMsgMethod('something error!')
+            return r.list(dataList,header,errorMsg)
+
+
+class Logout:
+    def GET(self):
+        session.kill()
+        web.seeother('/login')
+
+class DelDomain:
+    def GET(self):
+        i = web.input()
+        if not i.domainId:
+            web.seeother('/list')
+        else:
+            #do del
+            return 'success delte'
+
+class AddDomian:
+    def GET(self):
+        a = 'aaa'
+        return r.add(a)
+
+
+
+
+
+def chkLogin():
+        if session.get('login',False):
+            web.seeother('/list')
+
+
+def errorMsgMethod(msg):
+    return '<div class="alert alert-danger">'+msg+'</div>'
+
+
+
+app = web.application(urls, globals())
+curdir = os.path.dirname(__file__)
+session = web.session.Session(app, web.session.DiskStore(curdir + '/' + 'sessions'),)
+application = app.wsgifunc()

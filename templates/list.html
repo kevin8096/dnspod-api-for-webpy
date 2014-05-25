@@ -1,0 +1,46 @@
+$def with (header,errorMsg,successMsg,domianListDict)
+$:header
+<div style="float: left;margin:0px 300px 0px 100px;width:800px">
+    $:errorMsg
+    $:successMsg
+    <div class="panel panel-default">
+  <div class="panel-heading">dns list<span style="float: right"><a href="/list?export=1">导出记录</a></span></div>
+<table class="table table-hover">
+    <tr>
+        <th>星标</th>
+        <th>域名</th>
+        <th>创建时间</th>
+        <th>更新时间</th>
+        <th>操作</th>
+    </tr>
+    $for domain in domianListDict:
+    <tr>
+        $if domain['is_mark'] == 'yes':
+            <th>★</th>
+        $else:
+            <th>☆</th>
+        <td>$domain['name']</td>
+        <td>$domain['created_on']</td>
+        <td>$domain['updated_on']</td>
+        <td style="width: 20%;text-align: center;">
+            <a href="/list?domainId=$domain['id']" title='删除域名' onclick="return chkDel()"> <span class="glyphicon glyphicon-remove"></span></a>&nbsp;&nbsp;
+            <a href="/records?domainId=$domain['id']" title='记录管理' target="_blank" > <span class="glyphicon glyphicon-record"></span></a>
+
+        </td>
+    </tr>
+</table>
+
+    </div>
+</div>
+</div>
+
+
+<script>
+function chkDel() {
+    if(confirm("是否删除?")){
+        return true;
+    }else{
+        return false;
+    }
+}
+</script>

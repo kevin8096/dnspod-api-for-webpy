@@ -1,0 +1,28 @@
+$def with (a,header)
+$:header
+<div style="float: left;margin:0px 300px 0px 100px;width:800px">
+    <form method="post" action="" onSubmit="return check()">
+<div><input type="text" class="form-control" placeholder="Text input" name="domain"></div><br/>
+<div class="checkbox">
+  <label>
+    <input type="checkbox" value="1" name="light">
+    点亮星标$a
+  </label>
+</div><br/>
+    <button type="summit" class="btn btn-success">Success</button>
+        </form>
+</div>
+
+<script language="javascript">
+function check(){
+    str = form1.domain.value;
+    str = str.match(/.+/);
+    if (str == null){
+        alert('你输入的URL无效');
+        return false;
+    }else{
+        alert("你输入的URL有效");
+        return true;
+    }
+}
+</script>
