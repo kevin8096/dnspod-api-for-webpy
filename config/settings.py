@@ -4,7 +4,6 @@ import web
 import os
 
 urls = (
-    '/', 'Index',
     '/login', 'Login',
     '/list', 'List',
     '/logout','Logout',
