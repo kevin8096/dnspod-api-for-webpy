@@ -12,3 +12,6 @@ dnspod-api-for-webpy
 config 里面是一些自定义配置
 
 include里是 dnsapi 调用类以及导出类
+
+
+ui用的是bootstrap
