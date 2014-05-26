@@ -15,3 +15,6 @@ include里是 dnsapi 调用类以及导出类
 
 
 ui用的是bootstrap
+
+
+只是写了一部分功能 ，没写的部分大概都差不多
