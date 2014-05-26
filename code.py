@@ -56,7 +56,7 @@ class Login:
             errorMsg = errorMsgMethod('please check your email or password!')
         return r.login(errorMsg)
     def POST(self):
-        i = web.input(email='kevin8096@live.com',pwd='2720003')
+        i = web.input()
         if not i.email:
             return 'please check your email'
         if not i.pwd:
